@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="notes-section">
+    <a href="{{ url_for('notes.add_note') }}" class="note new">
+        <i class="fas fa-plus fa-2x"></i>
+    </a>
+    {% for note in notes %}
+    <a href="{{ url_for('notes.edit_note', key=note.key) }}" class="note">
+        <h2>{{ note.title }}</h2>
+        <p>{{ note.body }}</p>
+    </a>
+{% endfor %}
+</div>
+{% endblock %}

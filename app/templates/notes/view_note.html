@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note.title }} - Notes{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/note.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="note-container">
+  <div class="parent">
+    <form method="POST" id="note-form">
+        <div class="heading">
+            <input id="title" spellcheck="false" value="{{ note.title }}" autocomplete="off" disabled="true">
+            <p id="status">‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</p>
+        </div>
+        <textarea id="body" spellcheck="false" disabled="true">{{ note.body }}</textarea>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note.title }} - Notes{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/note.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="note-container">
+  <div class="parent">
+    <div class="heading">
+        <span class="heading-span">
+            <input class="typing" id="title" onInput="$('#status').html('Saving...')" spellcheck="false" value="{{ note.title }}" autocomplete="off">
+            <i class="fas fa-ellipsis-v note-menu"></i>
+        </span>
+        <div class="options note-options">
+            <a id="public" class="option">
+                {% if note.is_public %}
+                    <span id="note-privacy">Public</span><br>
+                    <span id="note-privacy-desc">Anyone with the link can view</span>
+                {% else %}
+                    <span id="note-privacy">Private</span><br>
+                    <span id="note-privacy-desc">Only you have access to this note</span>
+                {% endif %}
+            </a>
+            <a id="delete" class="option" onclick="toggleModal()">Delete Note</a>
+        </div>
+        <div class="modal-background"></div>
+            <div class="delete-note-modal">
+                <h2>Are you sure you want to delete this note?</h2>
+                <div class="buttons">
+                    <button class="btn-grey-outline">Cancel</button>
+                    <button id="delete-note" class="btn-red">Delete</button>
+                </div>
+            </div>
+        <p id="status">‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</p>
+    </div>
+    <textarea class="typing" id="body" spellcheck="false" onInput="$('#status').html('Saving...')">{{ note.body }}</textarea>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    function saveNote() {
+        $.ajax({
+        type: 'POST',
+        url: "{{ url_for('notes.edit_note', key=note.key) }}",
+        data: {
+          title: $("#title").val(),
+          body: $("#body").val(),
+        },
+        success: function()
+        {
+            console.log('saved');
+          $('#status').html('Saved');
+          document.title = $("#title").val() + " - Notes";
+        }
+      })
+    }
+
+    function toggleNotePublic() {
+        console.log('public/private');
+        $.ajax({
+        type: 'POST',
+        url: "{{ url_for('notes.toggle_public', key=note.key) }}",
+        success: function(res)
+        {
+            console.log(res);
+            var display = "Private";
+            var message = "Your note is now private. ";
+            var desc = "Only you have access to this note";
+            if (res == "True") {
+                display = "Public";
+                desc = "Anyone with the link can view";
+                message = "Your note is now public. ";
+            }
+            $("#note-privacy").html(display);
+            $("#note-privacy-desc").html(desc);
+            $("#messages").html(`<div class="flash-message"><span>${message}</span><i onclick="closeMessage()" id="close-button" class="fas fa-times"></i></div>`);
+        }
+        })
+    }
+
+    function deleteNote() {
+        $.ajax({
+        type: 'POST',
+        url: "{{ url_for('notes.delete_note', key=note.key) }}",
+        success: function(res)
+        {
+            console.log(res);
+            window.location.replace("{{ url_for('main.index') }}");
+        }
+        })
+    }
+
+    function updateContent() {
+        $.ajax({
+        type: 'POST',
+        url: "{{ url_for('notes.get_note', key=note.key) }}",
+        success: function(res)
+        {
+            if(!$("input, textarea").is(":focus") && $('#status').html() != 'Saving...'){
+                $("input").val(res.title);
+                $("textarea").val(res.body);
+            }
+        }
+        })
+    }
+
+    var update;
+    $( document ).ready(function() {
+        update = setInterval(updateContent, 5000);
+    });
+
+
+    var timer;
+    $(".typing").on("keyup", function() {
+        clearInterval(timer);
+        timer = setTimeout(function() {
+            saveNote();
+        }, 3 * 1000);
+    });
+
+    $(window).bind('beforeunload', function() {
+        if ($('#status').html() == 'Saving...') {
+            return 'Leave';
+        }
+    });
+
+    $(".option").click(function(e) {
+        console.log(e.target.id)
+        if (e.target.id == "public" || e.target.id == "note-privacy" || e.target.id == "note-privacy-desc") {
+            toggleNotePublic();
+        }
+    })
+
+    $("#delete-note").click(function() {
+        deleteNote();
+    })
+
+
+</script>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/note.js') }}"></script>
+<script src="{{ url_for('static', filename='js/closeMessage.js') }}"></script>
+{% endblock %}

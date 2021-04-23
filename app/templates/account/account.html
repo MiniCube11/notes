@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Account - Notes{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/button.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <form class="auth-form" action="{{ url_for('account.account') }}" method="post">
+        <h1 class="form-title">{{ form_title }}</h1>
+        <input type="text" name="username" value="{{ current_user.username }}" placeholder="Username">
+        <input type="email" value="{{ current_user.email }}" placeholder="Email" disabled="true">
+        <div>
+        <button type="submit" class="btn-blue">{{ form_button }}</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

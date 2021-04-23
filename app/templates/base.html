@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}Notes{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block stylesheets %}{% endblock %}
+    <script src="https://kit.fontawesome.com/077b065f8a.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="top">
+      <h1 class='title'><a href="{{ url_for('main.index') }}">Notes</a></h1>
+      {% if current_user.is_authenticated %}
+        <h3 class="user">{{ current_user.username[0].upper() }}</h3>
+        <div class="options">
+            <a href="{{ url_for('account.account') }}" class="option">{{ current_user.username }}</a>
+            <a href="{{ url_for('auth.logout') }}" class="option">Log Out</a>
+        </div>
+      {% else %}
+        {% if title != "Log In" %}
+        <a href="{{ url_for('auth.login') }}"><h3>Log In</h3></a>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div id="messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash-message {% if category == 'error' %}error-message{% endif %}">
+                <span>{{ message }}</span>
+                <i id="close-button" class="fas fa-times"></i>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+    {% block content %}{% endblock %}
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/message.js') }}"></script>
+    {% endblock %}
+  </body>
+</html>

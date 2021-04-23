@@ -1,0 +1,45 @@
+button {
+    flex: 1;
+    background-color:#3598dc;
+    border: none;
+    outline: none;
+    padding: 12px;
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    width: 60vw;
+    margin: 10px 0;
+}
+
+.btn-blue:hover {
+    background-color: #288bcc;
+    transition: background-color 0.2s ease;
+}
+
+.btn-blue:active {
+    background-color: #1a76b3;
+    transition: background-color 0.2s ease;
+}
+
+.btn-red {
+    background-color: #db5350;
+}
+
+.btn-red:hover {
+    background-color: #cc403d;
+    transition: background-color 0.2s ease;
+}
+
+.btn-red:active {
+    background-color: #bb322f;
+    transition: background-color 0.2s ease;
+}
+
+@media (min-width: 600px) {
+    button {
+        width: auto;
+        margin: 10px 6px;
+        margin-top: 15px;
+    }
+}
