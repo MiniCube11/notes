@@ -9,7 +9,7 @@ def get_auth_url():
                 "&access_type=offline",
                 "&include_granted_scopes=true",
                 "&response_type=code",
-                "&redirect_uri=http://127.0.0.1:5000/authorized",
+                "&redirect_uri=https://notesapp0011.herokuapp.com/authorized",
                 f"&client_id={app.config['GOOGLE_CLIENT_ID']}"
                 ]
     return ''.join(auth_url)
@@ -21,7 +21,7 @@ def get_access_token():
         "client_id": app.config['GOOGLE_CLIENT_ID'],
         "client_secret": app.config['GOOGLE_CLIENT_SECRET'],
         "grant_type": "authorization_code",
-        "redirect_uri": "http://127.0.0.1:5000/authorized"
+        "redirect_uri": "https://notesapp0011.herokuapp.com/authorized"
     }).json()
     return res['access_token']
 
