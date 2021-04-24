@@ -2,6 +2,7 @@ from flask import Blueprint, redirect, render_template, url_for, request, abort,
 from app import db
 from app.models import Note
 from flask_login import current_user, login_required
+from datetime import datetime
 
 bp = Blueprint('notes', __name__, url_prefix='/notes')
 
@@ -24,6 +25,7 @@ def edit_note(key):
         body = request.form.get("body")
         note.title = title
         note.body = body
+        note.last_updated = datetime.utcnow()
         db.session.commit()
     if note.author == current_user:
         return render_template('notes/edit_note.html', note=note)

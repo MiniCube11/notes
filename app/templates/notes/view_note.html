@@ -18,4 +18,26 @@
     </form>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    function updateContent() {
+        $.ajax({
+        type: 'POST',
+        url: "{{ url_for('notes.get_note', key=note.key) }}",
+        success: function(res)
+        {
+            $("input").val(res.title);
+            $("textarea").val(res.body);
+        }
+        })
+    }
+
+    var update;
+    $( document ).ready(function() {
+        update = setInterval(updateContent, 5000);
+    });
+
+</script>
 {% endblock %}

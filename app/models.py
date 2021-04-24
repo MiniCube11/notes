@@ -1,5 +1,6 @@
 from app import db, login
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class User(UserMixin, db.Model):
@@ -38,6 +39,7 @@ class Note(db.Model):
     body = db.Column(db.String(2000), index=True)
     is_public = db.Column(db.Boolean, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow)
 
     @staticmethod
     def generate_key():
