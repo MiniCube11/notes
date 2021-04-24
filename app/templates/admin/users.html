@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <a href="{{ url_for('admin.admin_home') }}">Admin</a><br>
+    <a href="{{ url_for('admin.users') }}">Users</a><br>
+    <a href="{{ url_for('admin.notes') }}">Notes</a><br><br><br>
+    {% if not notes %}
+        <a href="{{ url_for('admin.users', notes=1) }}">View User Notes</a><br><br>
+    {% endif %}
+    Users:
+    {% for user in users %}
+    <p>Id: {{ user.id }} | Username: {{ user.username }} | Sub: {{ user.userid }} | Email: {{ user.email }} | Admin: {{ user.is_admin }}</p>
+    {% if notes %}
+        {% for note in user.notes %}
+        <a href="{{ url_for('notes.edit_note', key=note.key) }}">{{ note.title }}</a><br>
+        {% endfor %}
+    {% endif %}
+    <br>
+    {% endfor %}
+
+</div>
+{% endblock %}

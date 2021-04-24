@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     user_caps = db.Column(db.String(64), index=True, unique=True)
     userid = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
+    is_admin = db.Column(db.Boolean, index=True)
     notes = db.relationship('Note', backref='author', lazy='dynamic')
 
     def set_valid_username(self, username):

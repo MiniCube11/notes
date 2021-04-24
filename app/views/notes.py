@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, url_for, request, abort, flash, session
-from app import db
+from app import app, db
 from app.models import Note
 from flask_login import current_user, login_required
 from datetime import datetime
@@ -27,7 +27,7 @@ def edit_note(key):
         note.body = body
         note.last_updated = datetime.utcnow()
         db.session.commit()
-    if note.author == current_user:
+    if note.author == current_user or current_user.is_admin:
         return render_template('notes/edit_note.html', note=note)
     elif note.is_public:
         return render_template('notes/view_note.html', note=note)

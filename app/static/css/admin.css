@@ -1,0 +1,8 @@
+.main {
+    margin: 40px var(--side-margin);
+    font-family: var(--main-font);
+}
+
+.main a {
+    color: #4A4A4A;
+}
