@@ -27,13 +27,16 @@ def edit_note(key):
         note.body = body
         note.last_updated = datetime.utcnow()
         db.session.commit()
-    if note.author == current_user or current_user.is_admin:
+    if note.author == current_user:
         return render_template('notes/edit_note.html', note=note)
     elif note.is_public:
         return render_template('notes/view_note.html', note=note)
     else:
         if current_user.is_authenticated:
-            abort(403)
+            if current_user.is_admin:
+                return render_template('notes/edit_note.html', note=note)
+            else:
+                abort(403)
         else:
             session['next'] = url_for('notes.edit_note', key=key)
             return redirect(url_for('auth.login'))
