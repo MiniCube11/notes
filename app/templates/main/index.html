@@ -7,8 +7,12 @@
     </a>
     {% for note in notes %}
     <a href="{{ url_for('notes.edit_note', key=note.key) }}" class="note">
-        <h2>{{ note.title }}</h2>
-        <p>{{ note.body }}</p>
+        {% if note.title or note.body %}
+            <h2>{{ note.title }}</h2>
+            <p>{{ note.body }}</p>
+        {% else %}
+            <p>Empty Note</p>
+        {% endif %}
     </a>
 {% endfor %}
 </div>

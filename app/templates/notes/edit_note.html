@@ -12,7 +12,7 @@
   <div class="parent">
     <div class="heading">
         <span class="heading-span">
-            <input class="typing" id="title" onInput="$('#status').html('Saving...')" spellcheck="false" value="{{ note.title }}" autocomplete="off">
+            <input class="typing" id="title" placeholder="Title" onInput="$('#status').html('Saving...')" spellcheck="false" value="{{ note.title }}" autocomplete="off">
             <i class="fas fa-ellipsis-v note-menu"></i>
         </span>
         <div class="options note-options">
@@ -37,7 +37,7 @@
             </div>
         <p id="status">‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</p>
     </div>
-    <textarea class="typing" id="body" spellcheck="false" onInput="$('#status').html('Saving...')">{{ note.body }}</textarea>
+    <textarea class="typing" id="body" placeholder="Note" spellcheck="false" onInput="$('#status').html('Saving...')">{{ note.body }}</textarea>
   </div>
 </div>
 
