@@ -12,7 +12,7 @@ bp = Blueprint('auth', __name__)
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', login_page=False)
 
 
 @bp.route('/auth/google')
