@@ -23,6 +23,8 @@ def get_access_token():
         "grant_type": "authorization_code",
         "redirect_uri": f"{app.config['REDIRECT_URI']}/authorized"
     }).json()
+    if 'error' in res:
+        return 'error'
     return res['access_token']
 
 

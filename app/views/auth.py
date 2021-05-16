@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for, session
+from flask import Blueprint, redirect, render_template, url_for, session, flash
 from werkzeug.urls import url_parse
 from app import db
 from app.oauth import get_auth_url, get_access_token, get_user_info
@@ -27,6 +27,10 @@ def authorized():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     access_token = get_access_token()
+    if access_token == 'error':
+        flash("Invalid credentials. Please try again.", "error")
+        return redirect(url_for('auth.login'))
+
     user_info = get_user_info(access_token)
     user = User.query.filter_by(userid=user_info['sub']).first()
     if user:
