@@ -54,7 +54,6 @@
         },
         success: function()
         {
-            console.log('saved');
           $('#status').html('Saved');
           document.title = $("#title").val() + " - Notes";
         }
@@ -86,8 +85,8 @@
 
     function deleteNote() {
         $.ajax({
-        type: 'POST',
-        url: "{{ url_for('notes.delete_note', key=note.key) }}",
+        type: 'DELETE',
+        url: "{{ url_for('notes.edit_note', key=note.key) }}",
         success: function(res)
         {
             console.log(res);

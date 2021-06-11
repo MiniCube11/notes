@@ -11,7 +11,7 @@
     <a href="{{ url_for('admin.notes') }}">Notes</a><br><br><br>
     Notes:
     {% for note in notes %}
-    <p><a href="{{ url_for('notes.edit_note', key=note.key) }}">Link</a> | Id: {{ note.id }} | Title: {{ note.title }} | Body: {{ note.body[:20] }}... | Public: {{ note.is_public }} | Last Updated: {{ note.last_updated }} | Author: {{ note.author.username }}</p>
+    <p><a href="{{ url_for('notes.get_note', key=note.key) }}">Link</a> | Id: {{ note.id }} | Title: {{ note.title }} | Body: {{ note.body[:20] }}... | Public: {{ note.is_public }} | Last Updated: {{ note.last_updated }} | Author: {{ note.author.username }}</p>
     <br>
     {% endfor %}
 </div>

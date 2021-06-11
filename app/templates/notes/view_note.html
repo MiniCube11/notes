@@ -24,8 +24,8 @@
 <script type="text/javascript">
     function updateContent() {
         $.ajax({
-        type: 'POST',
-        url: "{{ url_for('notes.get_note', key=note.key) }}",
+        type: 'GET',
+        url: "{{ url_for('notes.edit_note', key=note.key) }}",
         success: function(res)
         {
             $("input").val(res.title);

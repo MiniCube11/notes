@@ -17,7 +17,7 @@
     <p>Id: {{ user.id }} | Username: {{ user.username }} | Sub: {{ user.userid }} | Email: {{ user.email }} | Admin: {{ user.is_admin }}</p>
     {% if notes %}
         {% for note in user.notes %}
-        <a href="{{ url_for('notes.edit_note', key=note.key) }}">{{ note.title }}</a><br>
+        <a href="{{ url_for('notes.get_note', key=note.key) }}">{{ note.title }}</a><br>
         {% endfor %}
     {% endif %}
     <br>

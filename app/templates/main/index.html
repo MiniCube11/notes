@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="notes-section">
-    <a href="{{ url_for('notes.add_note') }}" class="note new">
+    <a href="{{ url_for('notes.new') }}" class="note new">
         <i class="fas fa-plus fa-2x"></i>
     </a>
     {% for note in notes %}
-    <a href="{{ url_for('notes.edit_note', key=note.key) }}" class="note">
+    <a href="{{ url_for('notes.get_note', key=note.key) }}" class="note">
         {% if note.title or note.body %}
             <h2>{{ note.title }}</h2>
             <p>{{ note.body }}</p>
