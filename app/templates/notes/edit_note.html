@@ -57,6 +57,7 @@
             if (message == "done") {
                 console.log('ok')
               $('#status').html('Saved');
+              $('#saving-error').html('');
               document.title = $("#title").val() + " - Notes";
             } else {
                 $('#saving-error').html(message);
