@@ -18,10 +18,19 @@ def create_note():
 def update_note(note):
     title = request.form.get("title")
     body = request.form.get("body")
-    note.title = title
-    note.body = body
     note.last_updated = datetime.utcnow()
     db.session.commit()
+    try:
+        note.title = title
+        db.session.commit()
+    except:
+        return "Title is too long (maximum 64 characters)"
+    try:
+        note.body = body
+        db.session.commit()
+    except:
+        return "Text is too long (maximum 2000 characters)"
+    return "done"
 
 
 def delete_note(note):
@@ -59,8 +68,7 @@ def edit_note(key):
         else:
             return "Forbidden", 403
     if request.method == "POST":
-        update_note(note)
-        return "done"
+        return update_note(note)
     elif request.method == "DELETE":
         delete_note(note)
         return "done"
@@ -93,3 +101,9 @@ def get_note(key):
         else:
             session['next'] = url_for('notes.edit_note', key=key)
             return redirect(url_for('auth.login'))
+
+
+@bp.route('/<key>/update')
+def update_content(key):
+    note = Note.query.filter_by(key=key).first_or_404()
+    return {"title": note.title, "body": note.body}

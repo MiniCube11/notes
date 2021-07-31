@@ -59,6 +59,12 @@ input {
     color: rgb(124, 124, 124);
 }
 
+#saving-error {
+    font-family: var(--main-font);
+    color: #E56F6F;
+    margin-left: 20px;
+}
+
 textarea {
     color: black;
     background-color: white;

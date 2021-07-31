@@ -35,7 +35,7 @@
                     <button id="delete-note" class="btn-red">Delete</button>
                 </div>
             </div>
-        <p id="status">‎‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</p>
+        <p><span id="status">‎‎‏‏‎</span><span id="saving-error"></span></p>
     </div>
     <textarea class="typing" id="body" placeholder="Note" spellcheck="false" onInput="$('#status').html('Saving...')">{{ note.body }}</textarea>
   </div>
@@ -52,10 +52,15 @@
           title: $("#title").val(),
           body: $("#body").val(),
         },
-        success: function()
+        success: function(message)
         {
-          $('#status').html('Saved');
-          document.title = $("#title").val() + " - Notes";
+            if (message == "done") {
+                console.log('ok')
+              $('#status').html('Saved');
+              document.title = $("#title").val() + " - Notes";
+            } else {
+                $('#saving-error').html(message);
+            }
         }
       })
     }
@@ -97,8 +102,8 @@
 
     function updateContent() {
         $.ajax({
-        type: 'POST',
-        url: "{{ url_for('notes.get_note', key=note.key) }}",
+        type: 'GET',
+        url: "{{ url_for('notes.update_content', key=note.key) }}",
         success: function(res)
         {
             if(!$("input, textarea").is(":focus") && $('#status').html() != 'Saving...'){
