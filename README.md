@@ -22,7 +22,9 @@ The application is deployed on Heroku and uses the PostgreSQL add-on.
 Make sure you have Python and PostgreSQL installed.
 
 1. Create a PostgreSQL database
+
 2. Create a project in the [Google API Console](https://console.developers.google.com/)
+
 3. Create an OAuth client ID, adding `http://127.0.0.1:5000` under Authorised JavaScript origins and `http://127.0.0.1:5000/authorized` as an authorised redirect URI
 
 Create a `.env` file with the following secrets:
