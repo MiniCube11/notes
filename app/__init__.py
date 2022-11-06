@@ -35,7 +35,6 @@ app.register_blueprint(notes.bp)
 app.register_blueprint(account.bp)
 app.register_blueprint(admin.bp)
 
-from app import models
-
-if __name__ == '__main__':
-    app.run()
+from app.models import User, Note
+db.create_all()
+db.session.commit()
