@@ -2,7 +2,7 @@
 
 Notes is inspired by Google Keep, with a focus on a simple and easy-to-use interface.
 
-You can try the app here: https://notesapp0011.herokuapp.com/
+You can try the app here: https://notes0011.vercel.app/
 
 &nbsp;
 ![demo](screenshots/home.jpg)
