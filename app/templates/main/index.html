@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+<input type="search" id="search" autocomplete="off" value="{{query}}" />
+<button>Search</button>
 <div class="notes-section">
     <a href="{{ url_for('notes.new') }}" class="note new">
         <i class="fas fa-plus fa-2x"></i>
@@ -16,4 +18,27 @@
     </a>
 {% endfor %}
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    function updateQueryParam(param, value) {
+        let url = new URL(window.location.href);
+        let params = url.searchParams;
+        if (value.trim() === "") {
+            params.delete(param);
+        } else {
+            params.set(param, value);
+        }
+        window.location.href = url;
+        // window.history.pushState({}, '', url);
+    }
+
+    // use input instead of change to update without enter
+    $('#search').on('change', function() {
+        let searchValue = $('#search').val();
+        updateQueryParam("q", searchValue)
+    })
+</script>
+
 {% endblock %}
