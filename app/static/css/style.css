@@ -127,9 +127,38 @@ a {
     background-color: rgb(230, 230, 230);
 }
 
+.search-bar {
+    margin: 20px var(--side-margin);
+    font-family: var(--main-font);
+}
+
+#search {
+    width: calc(100vw - var(--side-margin) - 140px);
+    max-width: 400px;
+    padding: 10px 15px;
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    font-size: 14px;
+    outline: none;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 5px;
+    background-color: rgb(219, 219, 219);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.search-bar button:hover {
+    background-color: rgb(182, 182, 182);
+}
+
 .notes-section {
     margin: 20px var(--side-margin);
-    margin-top: 60px;
+    margin-top: 40px;
     display: grid;
     grid-auto-rows: 150px;
     grid-template-columns: repeat(1, minmax(250px, 1fr));

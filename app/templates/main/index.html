@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<input type="search" id="search" autocomplete="off" value="{{query}}" />
-<button>Search</button>
+<div class="search-bar">
+    <input type="search" id="search" autocomplete="off" value="{{query}}" />
+    <button>Search</button>
+</div>
 <div class="notes-section">
     <a href="{{ url_for('notes.new') }}" class="note new">
         <i class="fas fa-plus fa-2x"></i>
