@@ -4,7 +4,7 @@
 }
 
 body {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .note-container {
@@ -65,17 +65,25 @@ input {
     margin-left: 20px;
 }
 
-textarea {
+textarea, .textbox {
     color: black;
     background-color: white;
     width: var(--note-width);
     padding: var(--note-padding) 0;
-    height: 60vh;
+    min-height: 60vh;
     outline: none;
     border: none;
     resize: none;
+    overflow: hidden;
     font-size: 1rem;
     font-family: var(--main-font);
+}
+
+.hidden-div {
+    display: none;
+    white-space: pre-wrap;
+    word-wrap: normal; 
+    /* normal or break-word */
 }
 
 #note-privacy-desc {

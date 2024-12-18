@@ -37,7 +37,8 @@
             </div>
         <p><span id="status"></span><span id="saving-error"></span></p>
     </div>
-    <textarea class="typing" id="body" placeholder="Note" spellcheck="false" onInput="$('#status').html('Saving...')">{{ note.body }}</textarea>
+    <textarea class="typing textbox" id="body" placeholder="Note" spellcheck="false" onInput="$('#status').html('Saving...')">{{ note.body }}</textarea>
+    <div id="hidden-div" class="textbox"></div>
   </div>
 </div>
 
@@ -115,8 +116,24 @@
         })
     }
 
+    function resizeTextbox() {
+        let content = $("#body").val() + "a";
+        content = content.replace(/\n/g, '<br>');
+        $("#hidden-div").html(content);
+        $("#hidden-div").css({
+            "visibility": "hidden",
+            "display": "block",
+        });
+        $("#body").css("height", $("#hidden-div")[0].offsetHeight + 'px');
+        $("#hidden-div").css({
+            "visibility": "visible",
+            "display": "none",
+        });
+    }
+
     var update;
     $( document ).ready(function() {
+        resizeTextbox();
         update = setInterval(updateContent, 5000);
     });
 
@@ -146,7 +163,10 @@
         deleteNote();
     })
 
-
+    $("#body").on("input", function() {
+        resizeTextbox();
+        $("html, body").scrollTop($(document).height());
+    })
 </script>
 {% endblock %}
 {% block scripts %}
